@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plane
   - Key
+  - Anything
   layers:
   - Default
   - TransparentFX

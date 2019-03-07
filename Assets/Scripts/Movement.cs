@@ -8,10 +8,13 @@ public class Movement : MonoBehaviour {
     int maxHeight = 5;
     private bool isGrounded = true;
     private Rigidbody pRigidBody;
+    public AudioSource tick;
+    public GameObject door;
     // Use this for initialization
     void Start ()
     {
         pRigidBody = GetComponent<Rigidbody>();
+        tick = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -41,6 +44,12 @@ public class Movement : MonoBehaviour {
             isGrounded = true;
             pRigidBody.AddForce(new Vector3(0, jumpForce, 0));
         }
+
+        if (theCollision.gameObject.CompareTag("Plane"))
+        {
+            tick.Play();
+            Debug.Log("Sound work");
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -49,6 +58,15 @@ public class Movement : MonoBehaviour {
         {
             Debug.Log("Exited");
             isGrounded = false;
+        }
+    }
+
+    void OnMouseOver(Collision collision)
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            door.transform.Rotate(0, 90, 0);
+            Debug.Log("DoorWork");
         }
     }
 }
